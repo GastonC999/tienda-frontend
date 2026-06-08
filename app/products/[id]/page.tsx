@@ -4,6 +4,8 @@ import { Product } from '@/types'
 import AddToCartButton from '@/components/AddToCartButton'
 import { getProduct } from '@/lib/api'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProductPage({
   params,
 }: {
