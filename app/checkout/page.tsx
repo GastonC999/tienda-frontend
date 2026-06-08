@@ -33,8 +33,7 @@ export default function CheckoutPage() {
 
     try {
       // 1. Crear la orden en nuestro backend
-      const orderRes = await fetch('http://localhost:8080/api/orders', {
-        method: 'POST',
+      const orderRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/orders`, {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customerName: form.customerName,
@@ -53,7 +52,7 @@ export default function CheckoutPage() {
       const order = await orderRes.json()
 
       // 2. Crear la preferencia de pago en MercadoPago
-      const paymentRes = await fetch('http://localhost:8080/api/payments/create-preference', {
+      const paymentRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/payments/create-preference`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
@@ -125,7 +124,7 @@ export default function CheckoutPage() {
             </div>
           ))}
         </div>
-        <div className="flex justify-between items-baseline pt-4 mt-2 border-t border-gray-200">
+        <div className="flex justify-between items-baselin  e pt-4 mt-2 border-t border-gray-200">
           <span className="text-gray-500 text-sm">Total</span>
           <span className="text-xl font-semibold">
             ${totalPrice().toLocaleString('es-AR')}
