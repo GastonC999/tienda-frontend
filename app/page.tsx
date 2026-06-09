@@ -1,7 +1,13 @@
+import Hero from '@/components/Hero'
+import Categories from '@/components/Categories'
+import FeaturedProducts from '@/components/FeaturedProducts'
+
 export default function Home() {
   return (
-    <main>
-      <h1>Mi tienda</h1>
-    </main>
+    <div>
+      <Hero />
+      <Categories />
+      <FeaturedProducts />
+    </div>
   )
 }
