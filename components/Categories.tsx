@@ -3,24 +3,31 @@ import Link from 'next/link'
 const CATEGORIES = [
   {
     name: 'Café',
-    description: 'Single origin, blends y accesorios',
+    description: 'Single origin, blends, cápsulas y utensillos',
     icon: '☕',
-    href: '/products?category=Café',
+    href: '/products?category=Caf%C3%A9',
     color: '#3D1A00',
   },
   {
     name: 'Cannabis Medicinal',
-    description: 'Flores, aceites y derivados',
+    description: 'Aceites CBD, tinturas, cremas y plantines',
     icon: '🌿',
-    href: '/products?category=Cannabis',
+    href: '/products?category=Cannabis%20Medicinal',
     color: '#0A2A0A',
   },
   {
+    name: 'Cultivo',
+    description: 'Fertilizantes, carpas, luces y sustrato',
+    icon: '🌱',
+    href: '/products?category=Cultivo',
+    color: '#1A2A0A',
+  },
+  {
     name: 'Accesorios',
-    description: 'Todo lo que necesitás',
-    icon: '✦',
+    description: 'Papeles, picadores, vapers y más',
+    icon: '🛠️',
     href: '/products?category=Accesorios',
-    color: '#2A1A00',
+    color: '#2A1A2A',
   },
 ]
 
