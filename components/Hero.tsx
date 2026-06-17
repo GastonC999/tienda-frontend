@@ -9,7 +9,7 @@ const SLIDES = [
     subtitle: 'Granos seleccionados de origen único, tostados con dedicación',
     cta: 'Ver cafés',
     href: '/products?category=Caf%C3%A9',
-    bg: 'from-[#3D0A0A] to-[#6B1010]',
+    bg: 'from-[#3D0A0A] to-[#581A1B]',
     accent: '#C8902A',
     tag: '☕ Single Origin',
   },

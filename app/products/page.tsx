@@ -22,7 +22,7 @@ export default async function ProductsPage({
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold mb-1" style={{ color: '#6B1010' }}>
+        <h1 className="text-2xl font-semibold mb-1" style={{ color: '#581A1B' }}>
           {category || 'Todos los productos'}
         </h1>
         <p className="text-sm text-gray-400">

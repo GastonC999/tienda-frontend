@@ -66,7 +66,7 @@ types/
 ## Paleta de colores Moccana
 | Variable | Valor | Uso |
 |---|---|---|
-| Vino | `#6B1010` | Color principal, navbar, footer |
+| Vino | `#581A1B` | Color principal, navbar, footer |
 | Dorado | `#C8902A` | Acentos, botones, links |
 
 ## Estado global: cartStore

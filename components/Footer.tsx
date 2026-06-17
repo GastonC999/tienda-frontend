@@ -3,11 +3,11 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#6B1010', borderTop: '1px solid rgba(200, 144, 42, 0.2)' }}>
+    <footer style={{ backgroundColor: '#581A1B', borderTop: '1px solid rgba(200, 144, 42, 0.2)' }}>
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div>
-            <Image src="/logo.png" alt="Moccana" width={120} height={40} className="object-contain mb-4" />
+            <Image src="/logo.webp" alt="Moccana" width={120} height={40} className="object-contain mb-4" />
             <p className="text-sm" style={{ color: 'rgba(200, 144, 42, 0.6)' }}>
               Café y cannabis medicinal de calidad
             </p>

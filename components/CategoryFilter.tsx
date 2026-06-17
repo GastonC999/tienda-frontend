@@ -25,9 +25,9 @@ export default function CategoryFilter({
         onClick={() => router.push('/products')}
         className="px-4 py-2 rounded-full text-sm font-medium transition-all"
         style={{
-          backgroundColor: !active ? '#6B1010' : 'transparent',
-          color: !active ? 'white' : '#6B1010',
-          border: '1px solid #6B1010',
+          backgroundColor: !active ? '#581A1B' : 'transparent',
+          color: !active ? 'white' : '#581A1B',
+          border: '1px solid #581A1B',
         }}
       >
         Todos
@@ -38,9 +38,9 @@ export default function CategoryFilter({
           onClick={() => handleClick(cat)}
           className="px-4 py-2 rounded-full text-sm font-medium transition-all"
           style={{
-            backgroundColor: active === cat ? '#6B1010' : 'transparent',
-            color: active === cat ? 'white' : '#6B1010',
-            border: '1px solid #6B1010',
+            backgroundColor: active === cat ? '#581A1B' : 'transparent',
+            color: active === cat ? 'white' : '#581A1B',
+            border: '1px solid #581A1B',
           }}
         >
           {cat}
