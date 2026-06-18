@@ -34,7 +34,7 @@ const CATEGORIES = [
 export default function Categories() {
   return (
     <section className="py-20">
-      <h2 className="text-3xl font-bold mb-2" style={{ color: '#581A1B' }}>
+      <h2 className="text-3xl font-bold mb-2" style={{ color: '#922a2d' }}>
         Categorías
       </h2>
       <p className="text-gray-500 mb-10">Encontrá lo que buscás</p>

@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-50 transition-all duration-300"
+      className="fade-in sticky top-0 z-50 transition-all duration-300"
       style={{
         backgroundColor: scrolled ? 'rgba(107, 16, 16, 0.97)' : '#581A1B',
         borderBottom: '1px solid rgba(200, 144, 42, 0.2)',
@@ -31,7 +31,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/">
           <Image
-            src="/logo.webp"
+            src="/logo-recort.webp"
             alt="Moccana"
             width={140}
             height={48}
@@ -42,26 +42,37 @@ export default function Navbar() {
         <div className="flex items-center gap-8">
           <Link
             href="/products"
-            className="text-sm font-medium transition-colors"
-            style={{ color: 'rgba(200, 144, 42, 0.8)' }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#C8902A')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(200, 144, 42, 0.8)')}
+            className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+            style={{
+              backgroundColor: 'rgba(200, 144, 42, 0)',
+              color: 'rgba(200, 144, 42, 0.8)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.18)'
+              e.currentTarget.style.color = '#E0B65C'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0)'
+              e.currentTarget.style.color = 'rgba(200, 144, 42, 0.8)'
+            }}
           >
             Productos
           </Link>
           <Link
             href="/cart"
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
             style={{
               backgroundColor: 'rgba(200, 144, 42, 0.15)',
               border: '1px solid rgba(200, 144, 42, 0.4)',
               color: '#C8902A',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.25)'
+              e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.35)'
+              e.currentTarget.style.color = '#E0B65C'
             }}
             onMouseLeave={e => {
               e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.15)'
+              e.currentTarget.style.color = '#C8902A'
             }}
           >
             <span>Carrito</span>

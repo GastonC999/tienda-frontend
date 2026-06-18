@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="es">
       <body>
         <Navbar />
-        <main className="min-h-screen max-w-6xl mx-auto px-4 py-8">
+        <main className="fade-in-up min-h-screen max-w-6xl mx-auto" style={{ padding: '40px' }}>
           {children}
         </main>
         <Footer />

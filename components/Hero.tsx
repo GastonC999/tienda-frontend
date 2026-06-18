@@ -3,6 +3,16 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+// 🔧 Ajustes manuales del Hero — modificá estos valores libremente.
+//    Controlan el ancho y el padding ANTES de que entre la lógica responsive.
+const HERO_CONFIG = {
+  maxWidth: '60rem', // ancho máximo (72rem = max-w-6xl, igual que las categorías)
+  paddingX: '1.5rem', // separación horizontal del contenido interno
+  paddingY: '32px', // separación vertical del contenido interno
+  minHeight: '60vh', // alto mínimo del carrusel
+  borderRadius: '1.5rem', // radio de las esquinas (0 para esquinas rectas)
+}
+
 const SLIDES = [
   {
     title: 'Café de especialidad',
@@ -64,8 +74,12 @@ export default function Hero() {
 
   return (
     <div
-      className={`relative w-full bg-linear-to-br ${slide.bg} transition-all duration-700`}
-      style={{ minHeight: '70vh', marginLeft: '-1rem', marginRight: '-1rem', width: 'calc(100% + 2rem)' }}
+      className={`relative w-full mx-auto overflow-hidden bg-linear-to-br ${slide.bg} transition-all duration-700`}
+      style={{
+        minHeight: HERO_CONFIG.minHeight,
+        maxWidth: HERO_CONFIG.maxWidth,
+        borderRadius: HERO_CONFIG.borderRadius,
+      }}
     >
       {/* Grain overlay */}
       <div
@@ -82,8 +96,14 @@ export default function Hero() {
       />
 
       <div
-        className={`relative max-w-6xl mx-auto px-4 py-24 flex flex-col justify-center transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
-        style={{ minHeight: '70vh' }}
+        className={`relative mx-auto flex flex-col justify-center transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
+        style={{
+          minHeight: HERO_CONFIG.minHeight,
+          paddingLeft: HERO_CONFIG.paddingX,
+          paddingRight: HERO_CONFIG.paddingX,
+          paddingTop: HERO_CONFIG.paddingY,
+          paddingBottom: HERO_CONFIG.paddingY,
+        }}
       >
         <span
           className="inline-block text-sm font-medium px-3 py-1 rounded-full mb-6 w-fit"
