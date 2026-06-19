@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+html,
+body {
+  background-color: #000000;
+  /* Evita la franja blanca del rebote al hacer scroll más allá del nav o footer */
+  overscroll-behavior-y: none;
+}
+
+/* FadeIn al ingresar a la página */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease-out both;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.7s ease-out both;
+}

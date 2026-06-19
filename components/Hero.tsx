@@ -3,6 +3,16 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+// 🔧 Ajustes manuales del Hero — modificá estos valores libremente.
+//    Controlan el ancho y el padding ANTES de que entre la lógica responsive.
+const HERO_CONFIG = {
+  maxWidth: '60rem', // ancho máximo (72rem = max-w-6xl, igual que las categorías)
+  paddingX: '1.5rem', // separación horizontal del contenido interno
+  paddingY: '32px', // separación vertical del contenido interno
+  minHeight: '60vh', // alto mínimo del carrusel
+  borderRadius: '1.5rem', // radio de las esquinas (0 para esquinas rectas)
+}
+
 const SLIDES = [
   {
     title: 'Café de especialidad',
@@ -10,7 +20,7 @@ const SLIDES = [
     cta: 'Ver cafés',
     href: '/products?category=Caf%C3%A9',
     bg: 'from-[#3D0A0A] to-[#581A1B]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '☕ Single Origin',
   },
   {
@@ -19,7 +29,7 @@ const SLIDES = [
     cta: 'Ver productos',
     href: '/products?category=Cannabis%20Medicinal',
     bg: 'from-[#0A2A0A] to-[#1A4A1A]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '🌿 Uso medicinal',
   },
   {
@@ -28,7 +38,7 @@ const SLIDES = [
     cta: 'Ver cultivo',
     href: '/products?category=Cultivo',
     bg: 'from-[#1A2A0A] to-[#2A4A0A]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '🌱 Grow shop',
   },
   {
@@ -37,7 +47,7 @@ const SLIDES = [
     cta: 'Ver accesorios',
     href: '/products?category=Accesorios',
     bg: 'from-[#1A0A2A] to-[#2A1A3A]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '🛠️ Accesorios',
   },
 ]
@@ -64,8 +74,12 @@ export default function Hero() {
 
   return (
     <div
-      className={`relative w-full bg-linear-to-br ${slide.bg} transition-all duration-700`}
-      style={{ minHeight: '70vh', marginLeft: '-1rem', marginRight: '-1rem', width: 'calc(100% + 2rem)' }}
+      className={`relative w-full mx-auto overflow-hidden bg-linear-to-br ${slide.bg} transition-all duration-700`}
+      style={{
+        minHeight: HERO_CONFIG.minHeight,
+        maxWidth: HERO_CONFIG.maxWidth,
+        borderRadius: HERO_CONFIG.borderRadius,
+      }}
     >
       {/* Grain overlay */}
       <div
@@ -82,12 +96,18 @@ export default function Hero() {
       />
 
       <div
-        className={`relative max-w-6xl mx-auto px-4 py-24 flex flex-col justify-center transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
-        style={{ minHeight: '70vh' }}
+        className={`relative mx-auto flex flex-col justify-center transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
+        style={{
+          minHeight: HERO_CONFIG.minHeight,
+          paddingLeft: HERO_CONFIG.paddingX,
+          paddingRight: HERO_CONFIG.paddingX,
+          paddingTop: HERO_CONFIG.paddingY,
+          paddingBottom: HERO_CONFIG.paddingY,
+        }}
       >
         <span
           className="inline-block text-sm font-medium px-3 py-1 rounded-full mb-6 w-fit"
-          style={{ backgroundColor: 'rgba(200, 144, 42, 0.2)', color: '#C8902A', border: '1px solid rgba(200, 144, 42, 0.3)' }}
+          style={{ backgroundColor: 'rgba(200, 144, 42, 0.2)', color: '#CD8C1F', border: '1px solid rgba(200, 144, 42, 0.3)' }}
         >
           {slide.tag}
         </span>
@@ -103,7 +123,7 @@ export default function Hero() {
         <Link
           href={slide.href}
           className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold w-fit transition-all hover:gap-4"
-          style={{ backgroundColor: '#C8902A', color: '#3D0A0A' }}
+          style={{ backgroundColor: '#CD8C1F', color: '#3D0A0A' }}
         >
           {slide.cta} →
         </Link>
@@ -118,7 +138,7 @@ export default function Hero() {
               style={{
                 width: i === current ? '24px' : '8px',
                 height: '8px',
-                backgroundColor: i === current ? '#C8902A' : 'rgba(200, 144, 42, 0.3)',
+                backgroundColor: i === current ? '#CD8C1F' : 'rgba(200, 144, 42, 0.3)',
               }}
             />
           ))}
