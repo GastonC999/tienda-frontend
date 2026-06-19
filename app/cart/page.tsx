@@ -13,7 +13,7 @@ export default function CartPage() {
         <p className="text-gray-400 text-lg mb-4">Tu carrito está vacío</p>
         <Link
           href="/products"
-          className="text-sm underline underline-offset-4 text-gray-600 hover:text-black"
+          className="text-sm underline underline-offset-4 text-gray-600 hover:text-white"
         >
           Ver productos
         </Link>

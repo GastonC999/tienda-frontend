@@ -20,7 +20,7 @@ const SLIDES = [
     cta: 'Ver cafés',
     href: '/products?category=Caf%C3%A9',
     bg: 'from-[#3D0A0A] to-[#581A1B]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '☕ Single Origin',
   },
   {
@@ -29,7 +29,7 @@ const SLIDES = [
     cta: 'Ver productos',
     href: '/products?category=Cannabis%20Medicinal',
     bg: 'from-[#0A2A0A] to-[#1A4A1A]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '🌿 Uso medicinal',
   },
   {
@@ -38,7 +38,7 @@ const SLIDES = [
     cta: 'Ver cultivo',
     href: '/products?category=Cultivo',
     bg: 'from-[#1A2A0A] to-[#2A4A0A]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '🌱 Grow shop',
   },
   {
@@ -47,7 +47,7 @@ const SLIDES = [
     cta: 'Ver accesorios',
     href: '/products?category=Accesorios',
     bg: 'from-[#1A0A2A] to-[#2A1A3A]',
-    accent: '#C8902A',
+    accent: '#CD8C1F',
     tag: '🛠️ Accesorios',
   },
 ]
@@ -107,7 +107,7 @@ export default function Hero() {
       >
         <span
           className="inline-block text-sm font-medium px-3 py-1 rounded-full mb-6 w-fit"
-          style={{ backgroundColor: 'rgba(200, 144, 42, 0.2)', color: '#C8902A', border: '1px solid rgba(200, 144, 42, 0.3)' }}
+          style={{ backgroundColor: 'rgba(200, 144, 42, 0.2)', color: '#CD8C1F', border: '1px solid rgba(200, 144, 42, 0.3)' }}
         >
           {slide.tag}
         </span>
@@ -123,7 +123,7 @@ export default function Hero() {
         <Link
           href={slide.href}
           className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold w-fit transition-all hover:gap-4"
-          style={{ backgroundColor: '#C8902A', color: '#3D0A0A' }}
+          style={{ backgroundColor: '#CD8C1F', color: '#3D0A0A' }}
         >
           {slide.cta} →
         </Link>
@@ -138,7 +138,7 @@ export default function Hero() {
               style={{
                 width: i === current ? '24px' : '8px',
                 height: '8px',
-                backgroundColor: i === current ? '#C8902A' : 'rgba(200, 144, 42, 0.3)',
+                backgroundColor: i === current ? '#CD8C1F' : 'rgba(200, 144, 42, 0.3)',
               }}
             />
           ))}

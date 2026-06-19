@@ -23,7 +23,7 @@ export default function Navbar() {
     <nav
       className="fade-in sticky top-0 z-50 transition-all duration-300"
       style={{
-        backgroundColor: scrolled ? 'rgba(107, 16, 16, 0.97)' : '#581A1B',
+        backgroundColor: scrolled ? 'rgba(88, 26, 27 , 1)' : '#581A1B',
         borderBottom: '1px solid rgba(200, 144, 42, 0.2)',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
       }}
@@ -31,7 +31,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/">
           <Image
-            src="/logo-recort.webp"
+            src="/mocanna-logo.webp"
             alt="Moccana"
             width={140}
             height={48}
@@ -64,7 +64,7 @@ export default function Navbar() {
             style={{
               backgroundColor: 'rgba(200, 144, 42, 0.15)',
               border: '1px solid rgba(200, 144, 42, 0.4)',
-              color: '#C8902A',
+              color: '#CD8C1F',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.35)'
@@ -72,14 +72,14 @@ export default function Navbar() {
             }}
             onMouseLeave={e => {
               e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.15)'
-              e.currentTarget.style.color = '#C8902A'
+              e.currentTarget.style.color = '#CD8C1F'
             }}
           >
             <span>Carrito</span>
             {mounted && totalItems > 0 && (
               <span
                 className="w-5 h-5 rounded-full text-xs flex items-center justify-center font-bold"
-                style={{ backgroundColor: '#C8902A', color: '#581A1B' }}
+                style={{ backgroundColor: '#CD8C1F', color: '#581A1B' }}
               >
                 {totalItems}
               </span>

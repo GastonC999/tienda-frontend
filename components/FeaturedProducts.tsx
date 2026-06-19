@@ -27,7 +27,7 @@ export default async function FeaturedProducts() {
         <Link
           href="/products"
           className="text-sm font-medium transition-colors"
-          style={{ color: '#C8902A' }}
+          style={{ color: '#CD8C1F' }}
         >
           Ver todos →
         </Link>

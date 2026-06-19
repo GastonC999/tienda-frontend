@@ -6,7 +6,7 @@ const CATEGORIES = [
     description: 'Single origin, blends, cápsulas y utensillos',
     icon: '☕',
     href: '/products?category=Caf%C3%A9',
-    color: '#3D1A00',
+    color: '#581A1B',
   },
   {
     name: 'Cannabis Medicinal',
@@ -27,7 +27,7 @@ const CATEGORIES = [
     description: 'Papeles, picadores, vapers y más',
     icon: '🛠️',
     href: '/products?category=Accesorios',
-    color: '#2A1A2A',
+    color: '#003647',
   },
 ]
 
@@ -54,7 +54,7 @@ export default function Categories() {
             </p>
             <span
               className="absolute bottom-6 right-6 text-2xl transition-transform group-hover:translate-x-1"
-              style={{ color: '#C8902A' }}
+              style={{ color: '#CD8C1F' }}
             >
               →
             </span>

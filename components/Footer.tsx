@@ -8,14 +8,14 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4" style={{ paddingTop: '15px', paddingBottom: '15px' }}>
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div>
-            <Image src="/logo-recort.webp" alt="Moccana" width={120} height={40} className="object-contain mb-4" />
+            <Image src="/mocanna-logo.webp" alt="Moccana" width={120} height={40} className="object-contain mb-4" />
             <p className="text-sm" style={{ color: FOOTER_TEXT }}>
               Café y cannabis medicinal de calidad
             </p>
           </div>
 
           <div>
-            <p className="text-xs font-semibold mb-3 uppercase tracking-widest" style={{ color: '#C8902A' }}>
+            <p className="text-xs font-semibold mb-3 uppercase tracking-widest" style={{ color: '#CD8C1F' }}>
               Contáctanos
             </p>
             <div className="flex items-center gap-4">
