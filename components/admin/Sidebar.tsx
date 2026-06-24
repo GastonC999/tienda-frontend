@@ -43,12 +43,16 @@ export default function Sidebar({ role, open, onClose }: SidebarProps) {
         aria-hidden
       />
 
+      {/* En mobile se desliza según `open`; en desktop (md+) queda siempre
+          visible y estático. El desplazamiento va por clases —no inline— para
+          que `md:translate-x-0` pueda ganarle al estado mobile. */}
       <aside
-        className="fixed inset-y-0 left-0 z-40 flex w-64 flex-col transition-transform duration-300 md:static md:translate-x-0"
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col transition-transform duration-300 md:static md:translate-x-0 ${
+          open ? 'translate-x-0' : '-translate-x-full'
+        }`}
         style={{
           backgroundColor: '#581A1B',
           borderRight: '1px solid rgba(200, 144, 42, 0.2)',
-          transform: open ? 'translateX(0)' : 'translateX(-100%)',
         }}
       >
         <div
