@@ -6,3 +6,11 @@ export interface Product {
   image: string
   category: string
 }
+
+export type Role = 'ADMIN' | 'EDITOR'
+
+export interface AuthUser {
+  email: string
+  role: Role
+  token: string
+}
