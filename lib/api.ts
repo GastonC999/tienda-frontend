@@ -1,4 +1,4 @@
-import { AuthUser, Product, ProductInput } from '@/types'
+import { AuthUser, Order, OrderStatus, Product, ProductInput } from '@/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
 
@@ -87,6 +87,35 @@ export async function deleteProduct(id: number, token: string): Promise<void> {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) throw new Error('No se pudo eliminar el producto')
+}
+
+// ---------------------------------------------------------------------------
+// Órdenes (gestión del admin). El GET está protegido (solo ADMIN), así que a
+// diferencia de getProducts() recibe el token y se invoca desde el servidor.
+// El cambio de estado va por el route handler BFF, igual que el ABM.
+// ---------------------------------------------------------------------------
+
+export async function getOrders(token: string): Promise<Order[]> {
+  const res = await fetch(`${API_URL}/orders`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error('Error al obtener las órdenes')
+  return res.json()
+}
+
+export async function updateOrderStatus(
+  id: number,
+  status: OrderStatus,
+  token: string
+): Promise<Order> {
+  const res = await fetch(`${API_URL}/orders/${id}/status`, {
+    method: 'PATCH',
+    headers: authJsonHeaders(token),
+    body: JSON.stringify({ status }),
+  })
+  if (!res.ok) throw new Error('No se pudo actualizar el estado')
+  return res.json()
 }
 
 // Reenvía el archivo (multipart) al backend, que lo sube a Cloudinary y
