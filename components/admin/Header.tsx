@@ -1,22 +1,16 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/store/authStore'
+import { signOut } from 'next-auth/react'
 import type { AuthUser } from '@/types'
 
 interface HeaderProps {
-  user: AuthUser
+  user: Pick<AuthUser, 'email' | 'role'>
   onToggleSidebar: () => void
 }
 
 export default function Header({ user, onToggleSidebar }: HeaderProps) {
-  const router = useRouter()
-  const logout = useAuthStore(state => state.logout)
-
-  const handleLogout = () => {
-    logout()
-    router.replace('/login')
-  }
+  // Cierra la sesión de NextAuth (borra la cookie) y vuelve al login.
+  const handleLogout = () => signOut({ redirectTo: '/admin/login' })
 
   return (
     <header

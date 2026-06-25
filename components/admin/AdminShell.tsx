@@ -1,44 +1,23 @@
 'use client'
 
-import { useEffect, useState, useSyncExternalStore } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/store/authStore'
+import { useState } from 'react'
+import type { AuthUser } from '@/types'
 import Sidebar from './Sidebar'
 import Header from './Header'
 
-// Devuelve false durante el SSR y el primer render de hidratación, y true
-// después. Permite esperar a que la sesión persistida se rehidrate desde
-// localStorage sin provocar un mismatch de hidratación.
-function useHydrated() {
-  return useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  )
-}
+type SessionUser = Pick<AuthUser, 'email' | 'role'>
 
-// Cascarón del panel admin: protege las rutas (redirige a /login si no hay
-// sesión) y arma el layout Sidebar + Header + contenido.
-export default function AdminShell({ children }: { children: React.ReactNode }) {
-  const user = useAuthStore(state => state.user)
-  const router = useRouter()
-  const hydrated = useHydrated()
+// Cascarón del panel admin: arma el layout Sidebar + Header + contenido. La
+// protección (redirigir a /admin/login si no hay sesión) la maneja el middleware
+// en el servidor; acá solo recibimos el usuario ya autenticado por props.
+export default function AdminShell({
+  user,
+  children,
+}: {
+  user: SessionUser
+  children: React.ReactNode
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  useEffect(() => {
-    if (hydrated && !user) router.replace('/login')
-  }, [hydrated, user, router])
-
-  if (!hydrated || !user) {
-    return (
-      <div
-        className="flex min-h-screen items-center justify-center"
-        style={{ backgroundColor: '#000000', color: 'rgba(200, 144, 42, 0.6)' }}
-      >
-        Cargando…
-      </div>
-    )
-  }
 
   return (
     <div className="flex min-h-screen" style={{ backgroundColor: '#000000' }}>

@@ -19,8 +19,19 @@ npm run dev → http://localhost:3000
 Creá un archivo `.env.local` en la raíz del proyecto:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8080/api
+AUTH_SECRET=<secreto-generado>
 ```
-En producción (Vercel) esta variable apunta a la URL del backend en Railway.
+- `NEXT_PUBLIC_API_URL`: en producción (Vercel) apunta a la URL del backend en Railway.
+- `AUTH_SECRET`: secreto que usa NextAuth para firmar/encriptar la cookie de sesión.
+  Generalo con `openssl rand -base64 32`. Es obligatorio en producción.
+
+## Autenticación del panel `/admin`
+Las rutas `/admin/*` están protegidas con [NextAuth](https://authjs.dev) (Auth.js v5):
+- `/admin/login` consume `POST /api/auth/login` del backend y guarda el JWT en una
+  cookie **httpOnly** (no accesible por JavaScript).
+- `middleware.ts` redirige a `/admin/login` cuando no hay sesión, y restringe
+  `/admin/orders` y `/admin/stats` al rol `ADMIN`.
+- Tras el login: `ADMIN` → `/admin/stats`, `EDITOR` → `/admin/products`.
 
 ## Estructura
 ```
