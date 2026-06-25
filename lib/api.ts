@@ -1,4 +1,4 @@
-import { AuthUser } from '@/types'
+import { AuthUser, Product, ProductInput } from '@/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
 
@@ -33,5 +33,73 @@ export async function getProducts() {
 export async function getProduct(id: number) {
   const res = await fetch(`${API_URL}/products/${id}`)
   if (!res.ok) throw new Error('Producto no encontrado')
+  return res.json()
+}
+
+// ---------------------------------------------------------------------------
+// Mutaciones autenticadas (ABM de productos + subida de imagen).
+//
+// IMPORTANTE: estas funciones reciben el `token` del backend por parámetro y NO
+// deben llamarse desde el navegador. El token vive en una cookie httpOnly que
+// el cliente no puede leer, así que sólo las invocan los route handlers de Next
+// (app/api/admin/* y app/api/upload), que obtienen el token con auth() en el
+// servidor y lo reenvían acá. Es el patrón BFF descrito arriba.
+// ---------------------------------------------------------------------------
+
+// Cabeceras comunes para llamadas autenticadas con cuerpo JSON.
+function authJsonHeaders(token: string) {
+  return {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  }
+}
+
+export async function createProduct(
+  input: ProductInput,
+  token: string
+): Promise<Product> {
+  const res = await fetch(`${API_URL}/products`, {
+    method: 'POST',
+    headers: authJsonHeaders(token),
+    body: JSON.stringify(input),
+  })
+  if (!res.ok) throw new Error('No se pudo crear el producto')
+  return res.json()
+}
+
+export async function updateProduct(
+  id: number,
+  input: ProductInput,
+  token: string
+): Promise<Product> {
+  const res = await fetch(`${API_URL}/products/${id}`, {
+    method: 'PUT',
+    headers: authJsonHeaders(token),
+    body: JSON.stringify(input),
+  })
+  if (!res.ok) throw new Error('No se pudo actualizar el producto')
+  return res.json()
+}
+
+export async function deleteProduct(id: number, token: string): Promise<void> {
+  const res = await fetch(`${API_URL}/products/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!res.ok) throw new Error('No se pudo eliminar el producto')
+}
+
+// Reenvía el archivo (multipart) al backend, que lo sube a Cloudinary y
+// devuelve la URL pública. El FormData ya viene armado desde el route handler.
+export async function uploadImage(
+  file: FormData,
+  token: string
+): Promise<{ url: string }> {
+  const res = await fetch(`${API_URL}/upload`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: file,
+  })
+  if (!res.ok) throw new Error('No se pudo subir la imagen')
   return res.json()
 }

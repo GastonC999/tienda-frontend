@@ -4,6 +4,7 @@ import { useState } from 'react'
 import type { AuthUser } from '@/types'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import ToastProvider from './ToastProvider'
 
 type SessionUser = Pick<AuthUser, 'email' | 'role'>
 
@@ -20,13 +21,15 @@ export default function AdminShell({
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="flex min-h-screen" style={{ backgroundColor: '#000000' }}>
-      <Sidebar role={user.role} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <ToastProvider>
+      <div className="flex min-h-screen" style={{ backgroundColor: '#000000' }}>
+        <Sidebar role={user.role} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <Header user={user} onToggleSidebar={() => setSidebarOpen(o => !o)} />
-        <main className="fade-in flex-1 p-6">{children}</main>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <Header user={user} onToggleSidebar={() => setSidebarOpen(o => !o)} />
+          <main className="fade-in flex-1 p-6">{children}</main>
+        </div>
       </div>
-    </div>
+    </ToastProvider>
   )
 }
