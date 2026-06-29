@@ -2,7 +2,7 @@ import { auth } from '@/auth'
 import AdminShell from '@/components/admin/AdminShell'
 
 // Layout del panel (grupo (panel)): solo /admin/products, /admin/orders, etc.
-// pasan por el cascarón. /admin/login queda fuera de este grupo, evitando un
+// pasan por el cascarón. /login queda fuera de este grupo, evitando un
 // bucle de redirección. La sesión se lee en el servidor con auth(); el
 // middleware ya garantiza que existe, así que el guard es defensivo.
 export default async function PanelLayout({

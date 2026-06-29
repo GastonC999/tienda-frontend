@@ -22,10 +22,10 @@ export default async function ProductsPage({
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold mb-1" style={{ color: '#581A1B' }}>
+        <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F5E6C8' }}>
           {category || 'Todos los productos'}
         </h1>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>
           {products.length} producto{products.length !== 1 ? 's' : ''}
         </p>
       </div>
@@ -33,7 +33,7 @@ export default async function ProductsPage({
       <CategoryFilter categories={CATEGORIES} active={category} />
 
       {products.length === 0 ? (
-        <div className="text-center py-24 text-gray-400">
+        <div className="text-center py-24" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>
           No hay productos en esta categoría todavía.
         </div>
       ) : (

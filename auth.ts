@@ -8,7 +8,7 @@ import type { Role } from '@/types'
 // el rol se guardan dentro del JWT de NextAuth, que viaja en una cookie httpOnly
 // (el navegador no puede leerla por JavaScript → protege contra XSS).
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  pages: { signIn: '/admin/login' },
+  pages: { signIn: '/login' },
   providers: [
     Credentials({
       credentials: {
