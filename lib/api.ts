@@ -1,4 +1,4 @@
-import { AuthUser, Order, OrderStatus, Product, ProductInput } from '@/types'
+import { AuthUser, Order, OrderStatus, Product, ProductInput, Stats } from '@/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
 
@@ -115,6 +115,21 @@ export async function updateOrderStatus(
     body: JSON.stringify({ status }),
   })
   if (!res.ok) throw new Error('No se pudo actualizar el estado')
+  return res.json()
+}
+
+// ---------------------------------------------------------------------------
+// Estadísticas (dashboard del admin). El endpoint está protegido (solo ADMIN),
+// así que igual que getOrders recibe el token y se invoca desde el servidor.
+// Devuelve todas las métricas ya calculadas por el backend en un solo request.
+// ---------------------------------------------------------------------------
+
+export async function getStats(token: string): Promise<Stats> {
+  const res = await fetch(`${API_URL}/stats`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error('Error al obtener las estadísticas')
   return res.json()
 }
 
