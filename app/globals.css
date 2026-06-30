@@ -2,7 +2,7 @@
 
 html,
 body {
-  background-color: #000000;
+  background-color: #1A0D0E;
   /* Evita la franja blanca del rebote al hacer scroll más allá del nav o footer */
   overscroll-behavior-y: none;
 }

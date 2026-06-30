@@ -19,10 +19,10 @@ export default async function FeaturedProducts() {
     <section className="py-20">
       <div className="flex items-baseline justify-between mb-10">
         <div>
-          <h2 className="text-3xl font-bold mb-2" style={{ color: '#581A1B' }}>
+          <h2 className="text-3xl font-bold mb-2" style={{ color: '#F5E6C8' }}>
             Destacados
           </h2>
-          <p className="text-gray-500">Los favoritos de la semana</p>
+          <p style={{ color: 'rgba(245, 230, 200, 0.5)' }}>Los favoritos de la semana</p>
         </div>
         <Link
           href="/products"
