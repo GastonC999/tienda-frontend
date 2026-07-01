@@ -9,7 +9,7 @@ import ToastProvider from './ToastProvider'
 type SessionUser = Pick<AuthUser, 'email' | 'role'>
 
 // Cascarón del panel admin: arma el layout Sidebar + Header + contenido. La
-// protección (redirigir a /admin/login si no hay sesión) la maneja el middleware
+// protección (redirigir a /login si no hay sesión) la maneja el middleware
 // en el servidor; acá solo recibimos el usuario ya autenticado por props.
 export default function AdminShell({
   user,
@@ -22,7 +22,7 @@ export default function AdminShell({
 
   return (
     <ToastProvider>
-      <div className="flex min-h-screen" style={{ backgroundColor: '#000000' }}>
+      <div className="flex min-h-screen" style={{ backgroundColor: '#1A0D0E' }}>
         <Sidebar role={user.role} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="flex min-w-0 flex-1 flex-col">

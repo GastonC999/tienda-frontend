@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signIn, getSession } from 'next-auth/react'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -29,18 +31,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div
-      className="flex min-h-screen items-center justify-center p-4"
-      style={{ backgroundColor: '#000000' }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="fade-in-up w-full max-w-sm rounded-2xl p-8"
-        style={{
-          backgroundColor: '#581A1B',
-          border: '1px solid rgba(200, 144, 42, 0.25)',
-        }}
-      >
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: '#1A0D0E' }}>
+      <Navbar minimal />
+
+      <main className="flex flex-1 items-center justify-center p-4">
+        <form
+          onSubmit={handleSubmit}
+          className="fade-in-up w-full max-w-sm rounded-2xl p-8"
+          style={{
+            backgroundColor: '#581A1B',
+            border: '1px solid rgba(200, 144, 42, 0.25)',
+          }}
+        >
         <h1 className="mb-6 text-center text-xl font-semibold" style={{ color: '#E0B65C' }}>
           Moccana Admin
         </h1>
@@ -97,7 +99,10 @@ export default function LoginPage() {
         >
           {loading ? 'Ingresando…' : 'Ingresar'}
         </button>
-      </form>
+        </form>
+      </main>
+
+      <Footer minimal />
     </div>
   )
 }

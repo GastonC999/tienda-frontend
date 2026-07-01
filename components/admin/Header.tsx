@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export default function Header({ user, onToggleSidebar }: HeaderProps) {
   // Cierra la sesión de NextAuth (borra la cookie) y vuelve al login.
-  const handleLogout = () => signOut({ redirectTo: '/admin/login' })
+  const handleLogout = () => signOut({ redirectTo: '/login' })
 
   return (
     <header
