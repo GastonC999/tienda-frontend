@@ -1,4 +1,13 @@
-import { AuthUser, Order, OrderStatus, Product, ProductInput, Stats } from '@/types'
+import {
+  AuthUser,
+  HeroSlide,
+  HeroSlideInput,
+  Order,
+  OrderStatus,
+  Product,
+  ProductInput,
+  Stats,
+} from '@/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
 
@@ -33,6 +42,20 @@ export async function getProducts() {
 export async function getProduct(id: number) {
   const res = await fetch(`${API_URL}/products/${id}`)
   if (!res.ok) throw new Error('Producto no encontrado')
+  return res.json()
+}
+
+// ---------------------------------------------------------------------------
+// Hero carousel (home). El GET es público como el de productos; el admin sólo
+// edita los slides existentes (no hay alta ni baja en el backend). La mutación
+// va por el route handler BFF, que reenvía el token.
+// ---------------------------------------------------------------------------
+
+// Público. cache: 'no-store' para que los cambios del admin se reflejen en la
+// home sin necesidad de redeploy.
+export async function getHeroSlides(): Promise<HeroSlide[]> {
+  const res = await fetch(`${API_URL}/slides`, { cache: 'no-store' })
+  if (!res.ok) throw new Error('Error al obtener los slides')
   return res.json()
 }
 
@@ -87,6 +110,22 @@ export async function deleteProduct(id: number, token: string): Promise<void> {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) throw new Error('No se pudo eliminar el producto')
+}
+
+// Edita un slide del Hero. Protegido (ADMIN/EDITOR): se invoca desde el route
+// handler BFF con el token del backend.
+export async function updateHeroSlide(
+  id: number,
+  input: HeroSlideInput,
+  token: string
+): Promise<HeroSlide> {
+  const res = await fetch(`${API_URL}/slides/${id}`, {
+    method: 'PUT',
+    headers: authJsonHeaders(token),
+    body: JSON.stringify(input),
+  })
+  if (!res.ok) throw new Error('No se pudo actualizar el slide')
+  return res.json()
 }
 
 // ---------------------------------------------------------------------------
