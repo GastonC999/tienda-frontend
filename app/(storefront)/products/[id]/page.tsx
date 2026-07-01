@@ -20,8 +20,8 @@ export default async function ProductPage({
   } catch {
     return (
       <div className="text-center py-24">
-        <p className="text-gray-400 text-lg mb-4">Producto no encontrado</p>
-        <Link href="/products" className="text-sm underline underline-offset-4">
+        <p className="text-lg mb-4" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>Producto no encontrado</p>
+        <Link href="/products" className="text-sm underline underline-offset-4" style={{ color: '#CD8C1F' }}>
           Volver al catálogo
         </Link>
       </div>
@@ -32,12 +32,13 @@ export default async function ProductPage({
     <div className="max-w-4xl mx-auto">
       <Link
         href="/products"
-        className="text-sm text-gray-400 hover:text-black transition-colors mb-8 inline-block"
+        className="text-sm transition-colors mb-8 inline-block hover:opacity-80"
+        style={{ color: 'rgba(245, 230, 200, 0.5)' }}
       >
         ← Volver
       </Link>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="relative aspect-square rounded-2xl overflow-hidden bg-gray-50">
+        <div className="relative aspect-square rounded-2xl overflow-hidden" style={{ backgroundColor: '#3D0A0A' }}>
           <Image
             src={product.image}
             alt={product.name}
@@ -47,10 +48,10 @@ export default async function ProductPage({
           />
         </div>
         <div className="flex flex-col justify-center">
-          <p className="text-sm text-gray-400 mb-2">{product.category}</p>
-          <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>
-          <p className="text-gray-500 mb-8">{product.description}</p>
-          <p className="text-2xl font-semibold mb-8">
+          <p className="text-sm mb-2" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>{product.category}</p>
+          <h1 className="text-3xl font-semibold mb-4" style={{ color: '#F5E6C8' }}>{product.name}</h1>
+          <p className="mb-8" style={{ color: 'rgba(245, 230, 200, 0.6)' }}>{product.description}</p>
+          <p className="text-2xl font-semibold mb-8" style={{ color: '#CD8C1F' }}>
             ${product.price.toLocaleString('es-AR')}
           </p>
           <AddToCartButton product={product} />

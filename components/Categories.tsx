@@ -34,10 +34,10 @@ const CATEGORIES = [
 export default function Categories() {
   return (
     <section className="py-20">
-      <h2 className="text-3xl font-bold mb-2" style={{ color: '#922a2d' }}>
+      <h2 className="text-3xl font-bold mb-2" style={{ color: '#F5E6C8' }}>
         Categorías
       </h2>
-      <p className="text-gray-500 mb-10">Encontrá lo que buscás</p>
+      <p className="mb-10" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>Encontrá lo que buscás</p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {CATEGORIES.map(cat => (

@@ -10,12 +10,10 @@ const ADMIN_ONLY = ['/admin/orders', '/admin/stats']
 export default auth(req => {
   const { pathname, origin } = req.nextUrl
 
-  // El login es público (si no, se produciría un bucle de redirección).
-  if (pathname === '/admin/login') return NextResponse.next()
-
-  // Sin sesión → al login.
+  // Sin sesión → al login. /login queda fuera del matcher (/admin/:path*),
+  // así que es público y no entra en este guardia.
   if (!req.auth) {
-    return NextResponse.redirect(new URL('/admin/login', origin))
+    return NextResponse.redirect(new URL('/login', origin))
   }
 
   // EDITOR intentando entrar a una ruta solo-ADMIN por URL → a su panel.

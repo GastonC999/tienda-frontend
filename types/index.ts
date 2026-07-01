@@ -58,3 +58,29 @@ export interface Order {
   createdAt: string
   items: OrderItem[]
 }
+
+// ---------------------------------------------------------------------------
+// Estadísticas del dashboard (panel ADMIN). Espejan el StatsResponse del
+// backend: `GET /api/stats` devuelve todo ya calculado en un solo request.
+// Solo se cuentan las órdenes PAID para revenue (lo impone el backend).
+// ---------------------------------------------------------------------------
+
+// Producto más vendido: nombre y unidades totales vendidas.
+export interface TopProduct {
+  productName: string
+  totalQuantity: number
+}
+
+// Punto del gráfico de línea: cantidad de órdenes en un día (no suma de pesos).
+export interface DailyOrder {
+  date: string
+  orderCount: number
+}
+
+export interface Stats {
+  totalRevenue: number // suma del total de órdenes PAID
+  ordersByStatus: Record<string, number> // claves: PENDING | PAID | CANCELLED
+  topProducts: TopProduct[] // top 5
+  revenueByCategory: Record<string, number> // revenue PAID por categoría
+  dailyOrders: DailyOrder[] // últimos 30 días
+}
