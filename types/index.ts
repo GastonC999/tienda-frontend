@@ -13,6 +13,23 @@ export type ProductInput = Omit<Product, 'id'>
 
 export type Role = 'ADMIN' | 'EDITOR'
 
+// Slide del carousel Hero de la home. Espeja la entidad HeroSlide del backend
+// (GET /api/slides público, PUT /api/slides/{id} para ADMIN/EDITOR). `imageUrl`
+// es la imagen de fondo (Cloudinary); `orden` define la posición en el carousel.
+export interface HeroSlide {
+  id: number
+  title: string
+  subtitle: string
+  cta: string
+  href: string
+  imageUrl: string
+  orden: number
+}
+
+// Payload de edición de un slide: todo menos id y orden (no se reordena desde
+// el formulario). Lo usan el modal del admin y el route handler BFF.
+export type HeroSlideInput = Omit<HeroSlide, 'id' | 'orden'>
+
 export interface AuthUser {
   email: string
   role: Role

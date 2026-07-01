@@ -1,12 +1,14 @@
-export default function AdminImagesPage() {
-  return (
-    <div>
-      <h1 className="text-2xl font-semibold" style={{ color: '#E0B65C' }}>
-        Imágenes
-      </h1>
-      <p className="mt-2 text-sm" style={{ color: 'rgba(200, 144, 42, 0.6)' }}>
-        Gestión de imágenes — en construcción.
-      </p>
-    </div>
-  )
+import { getHeroSlides } from '@/lib/api'
+import type { HeroSlide } from '@/types'
+import HeroSlideManager from '@/components/admin/images/HeroSlideManager'
+
+// Gestión de las imágenes del carousel Hero. El GET de slides es público, así
+// que se hace en el servidor (como en productos). force-dynamic asegura datos
+// frescos tras cada edición (router.refresh()).
+export const dynamic = 'force-dynamic'
+
+export default async function AdminImagesPage() {
+  const slides: HeroSlide[] = await getHeroSlides()
+
+  return <HeroSlideManager slides={slides} />
 }
