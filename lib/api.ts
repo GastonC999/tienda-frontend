@@ -100,7 +100,12 @@ export async function updateProduct(
     headers: authJsonHeaders(token),
     body: JSON.stringify(input),
   })
-  if (!res.ok) throw new Error('No se pudo actualizar el producto')
+  if (!res.ok) {
+    // Propagamos el status y el cuerpo real del backend para poder diagnosticar
+    // (aparece en los logs de Vercel y en la respuesta del route handler).
+    const detail = await res.text().catch(() => '')
+    throw new Error(`Backend ${res.status} al actualizar producto ${id}: ${detail}`)
+  }
   return res.json()
 }
 
