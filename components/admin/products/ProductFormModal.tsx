@@ -26,6 +26,7 @@ export default function ProductFormModal({
   const [name, setName] = useState(product?.name ?? '')
   const [description, setDescription] = useState(product?.description ?? '')
   const [price, setPrice] = useState(product ? String(product.price) : '')
+  const [stock, setStock] = useState(product ? String(product.stock) : '')
   const [category, setCategory] = useState<string>(product?.category ?? CATEGORIES[0])
   const [image, setImage] = useState(product?.image ?? '')
 
@@ -58,9 +59,12 @@ export default function ProductFormModal({
     setError('')
 
     const priceNum = Number(price)
+    const stockNum = Number(stock)
     if (!name.trim()) return setError('El nombre es obligatorio')
     if (!Number.isFinite(priceNum) || priceNum <= 0)
       return setError('El precio debe ser mayor a 0')
+    if (!Number.isInteger(stockNum) || stockNum < 0)
+      return setError('El stock debe ser un número igual o mayor a 0')
     if (!category) return setError('Elegí una categoría')
     if (!image) return setError('Subí una imagen')
 
@@ -69,6 +73,7 @@ export default function ProductFormModal({
       name: name.trim(),
       description: description.trim(),
       price: priceNum,
+      stock: stockNum,
       category,
       image,
     })
@@ -135,6 +140,20 @@ export default function ProductFormModal({
               step="0.01"
               value={price}
               onChange={e => setPrice(e.target.value)}
+              className="w-full rounded-lg px-3 py-2 text-sm outline-none"
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm" style={labelStyle}>
+              Stock
+            </label>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              value={stock}
+              onChange={e => setStock(e.target.value)}
               className="w-full rounded-lg px-3 py-2 text-sm outline-none"
               style={inputStyle}
             />

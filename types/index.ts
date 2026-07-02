@@ -5,6 +5,7 @@ export interface Product {
   description: string
   image: string
   category: string
+  stock: number
 }
 
 // Payload para crear/editar un producto: igual que Product pero sin el id, que
