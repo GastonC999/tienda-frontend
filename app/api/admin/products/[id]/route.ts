@@ -27,11 +27,32 @@ export async function PUT(
     return NextResponse.json({ error: 'Cuerpo inválido' }, { status: 400 })
   }
 
+  // DEBUG temporal: verificar que el backendToken exista y no esté vencido.
+  // (quitar una vez resuelto el 403 del panel)
+  const t = session.user.backendToken
+  let exp: number | undefined
   try {
-    const product = await updateProduct(productId, input, session.user.backendToken)
+    exp = JSON.parse(Buffer.from(t.split('.')[1], 'base64').toString()).exp
+  } catch {
+    /* token ausente o malformado */
+  }
+  console.log(
+    `[debug] PUT /products/${productId} → token present: ${Boolean(t)}, len: ${t?.length ?? 0}, exp: ${exp}, now: ${Math.floor(Date.now() / 1000)}, expired: ${exp ? exp < Date.now() / 1000 : 'N/A'}`
+  )
+
+  // ⚠️ OVERRIDE TEMPORAL SOLO PARA TEST — NO MERGEAR A MAIN.
+  // Fuerza un token válido para confirmar que con un token bueno el 403 desaparece.
+  // Este token vence ~24 h después de emitido; quitar apenas se confirme la hipótesis.
+  const TEST_TOKEN =
+    'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBtb2NjYW5hLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MzAyODI1MSwiZXhwIjoxNzgzMTE0NjUxfQ.xpoSDCg5rglMWTe4bpSGI4zVbzaLDuALPUQDavIsc7JgrnAbgkiT_02rY6HUnXW7'
+
+  try {
+    const product = await updateProduct(productId, input, TEST_TOKEN)
     return NextResponse.json(product)
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Error al actualizar el producto'
+    // Log explícito para que el error real del backend quede en los logs de Vercel.
+    console.error(`PUT /api/admin/products/${productId} falló:`, message)
     return NextResponse.json({ error: message }, { status: 502 })
   }
 }
