@@ -2,10 +2,9 @@ import ProductCard from '@/components/ProductCard'
 import CategoryFilter from '@/components/CategoryFilter'
 import { Product } from '@/types'
 import { getProducts } from '@/lib/api'
+import { CATEGORIES } from '@/lib/categories'
 
 export const dynamic = 'force-dynamic'
-
-const CATEGORIES = ['Café', 'Cannabis Medicinal', 'Cultivo', 'Accesorios']
 
 export default async function ProductsPage({
   searchParams,
@@ -25,9 +24,6 @@ export default async function ProductsPage({
         <h1 className="text-2xl font-semibold mb-1" style={{ color: '#F5E6C8' }}>
           {category || 'Todos los productos'}
         </h1>
-        <p className="text-sm" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>
-          {products.length} producto{products.length !== 1 ? 's' : ''}
-        </p>
       </div>
 
       <CategoryFilter categories={CATEGORIES} active={category} />

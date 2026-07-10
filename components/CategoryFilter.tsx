@@ -6,7 +6,7 @@ export default function CategoryFilter({
   categories,
   active,
 }: {
-  categories: string[]
+  categories: readonly string[]
   active?: string
 }) {
   const router = useRouter()

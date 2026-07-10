@@ -9,10 +9,10 @@ const CATEGORIES = [
     color: '#581A1B',
   },
   {
-    name: 'Cannabis Medicinal',
+    name: 'CBD y Bienestar',
     description: 'Aceites CBD, tinturas, cremas y plantines',
     icon: '🌿',
-    href: '/products?category=Cannabis%20Medicinal',
+    href: '/products?category=CBD%20y%20Bienestar',
     color: '#0A2A0A',
   },
   {

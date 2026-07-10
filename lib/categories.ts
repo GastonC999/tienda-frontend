@@ -3,7 +3,7 @@
 // esta lista (antes estaba duplicada inline en app/(storefront)/products/page.tsx).
 export const CATEGORIES = [
   'Café',
-  'Cannabis Medicinal',
+  'CBD y Bienestar',
   'Cultivo',
   'Accesorios',
 ] as const

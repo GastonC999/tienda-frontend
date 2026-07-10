@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { useCartStore } from '@/store/cartStore'
+import { CATEGORIES } from '@/lib/categories'
 
 // Espacio mínimo (px) que debe quedar entre el logo y los enlaces; al perderlo,
 // se colapsa al menú hamburguesa.
@@ -15,6 +16,7 @@ export default function Navbar({ minimal = false }: { minimal?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [compact, setCompact] = useState(false)
+  const [productsOpen, setProductsOpen] = useState(false)
 
   const rowRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<HTMLAnchorElement>(null)
@@ -54,28 +56,105 @@ export default function Navbar({ minimal = false }: { minimal?: boolean }) {
 
   const totalItems = items.reduce((acc, i) => acc + i.quantity, 0)
 
+  // El logo lleva a "/"; si ya estamos en la home el <Link> no re-navega, así que
+  // forzamos el scroll al top para que "vuelva al principio" en cualquier caso.
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+  // Link "Productos" con estilos de hover reutilizados en desktop y mobile.
+  const productsLink = (onNavigate?: () => void) => (
+    <Link
+      href="/products"
+      onClick={onNavigate}
+      className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap"
+      style={{
+        backgroundColor: 'rgba(200, 144, 42, 0)',
+        color: 'rgba(200, 144, 42, 0.8)',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.18)'
+        e.currentTarget.style.color = '#E0B65C'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0)'
+        e.currentTarget.style.color = 'rgba(200, 144, 42, 0.8)'
+      }}
+    >
+      Productos
+    </Link>
+  )
+
   // Enlaces del header, reutilizados en el bloque de escritorio y en el panel mobile.
-  const renderLinks = (onNavigate?: () => void) => (
+  // En desktop, "Productos" abre un dropdown de categorías al pasar el mouse; en el
+  // panel mobile (isMobile) el hover no aplica, así que queda como link simple.
+  const renderLinks = (onNavigate?: () => void, isMobile = false) => (
     <>
-      <Link
-        href="/products"
-        onClick={onNavigate}
-        className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap"
-        style={{
-          backgroundColor: 'rgba(200, 144, 42, 0)',
-          color: 'rgba(200, 144, 42, 0.8)',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.18)'
-          e.currentTarget.style.color = '#E0B65C'
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0)'
-          e.currentTarget.style.color = 'rgba(200, 144, 42, 0.8)'
-        }}
-      >
-        Productos
-      </Link>
+      {isMobile ? (
+        productsLink(onNavigate)
+      ) : (
+        <div
+          className="relative"
+          onMouseEnter={() => setProductsOpen(true)}
+          onMouseLeave={() => setProductsOpen(false)}
+        >
+          {productsLink(onNavigate)}
+          {/* Dropdown de categorías: aparece bajo "Productos" al hacer hover. */}
+          <div
+            className="absolute left-0 top-full pt-2 transition-all duration-200"
+            style={{
+              minWidth: '13rem',
+              opacity: productsOpen ? 1 : 0,
+              visibility: productsOpen ? 'visible' : 'hidden',
+              transform: productsOpen ? 'translateY(0)' : 'translateY(-6px)',
+              pointerEvents: productsOpen ? 'auto' : 'none',
+            }}
+          >
+            <div
+              className="flex flex-col gap-1 rounded-2xl p-2"
+              style={{
+                backgroundColor: '#581A1B',
+                border: '1px solid rgba(200, 144, 42, 0.3)',
+                boxShadow: '0 12px 30px rgba(0, 0, 0, 0.35)',
+              }}
+            >
+              <Link
+                href="/products"
+                onClick={() => setProductsOpen(false)}
+                className="rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200"
+                style={{ color: 'rgba(200, 144, 42, 0.8)' }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.18)'
+                  e.currentTarget.style.color = '#E0B65C'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                  e.currentTarget.style.color = 'rgba(200, 144, 42, 0.8)'
+                }}
+              >
+                Todos los productos
+              </Link>
+              {CATEGORIES.map(cat => (
+                <Link
+                  key={cat}
+                  href={`/products?category=${encodeURIComponent(cat)}`}
+                  onClick={() => setProductsOpen(false)}
+                  className="rounded-lg px-3 py-2 text-sm transition-all duration-200"
+                  style={{ color: 'rgba(200, 144, 42, 0.8)' }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.backgroundColor = 'rgba(200, 144, 42, 0.18)'
+                    e.currentTarget.style.color = '#E0B65C'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.backgroundColor = 'transparent'
+                    e.currentTarget.style.color = 'rgba(200, 144, 42, 0.8)'
+                  }}
+                >
+                  {cat}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       <Link
         href="/cart"
         onClick={onNavigate}
@@ -151,7 +230,7 @@ export default function Navbar({ minimal = false }: { minimal?: boolean }) {
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center">
-          <Link href="/">
+          <Link href="/" onClick={scrollToTop}>
             <Image
               src="/mocanna-logo.webp"
               alt="Moccana"
@@ -178,7 +257,7 @@ export default function Navbar({ minimal = false }: { minimal?: boolean }) {
         ref={rowRef}
         className="relative max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between"
       >
-        <Link href="/" ref={logoRef}>
+        <Link href="/" ref={logoRef} onClick={scrollToTop}>
           <Image
             src="/mocanna-logo.webp"
             alt="Moccana"
@@ -278,7 +357,7 @@ export default function Navbar({ minimal = false }: { minimal?: boolean }) {
         }}
       >
         <div className="px-4 sm:px-6 py-4 flex flex-col gap-3">
-          {renderLinks(() => setMenuOpen(false))}
+          {renderLinks(() => setMenuOpen(false), true)}
         </div>
       </div>
     </nav>
