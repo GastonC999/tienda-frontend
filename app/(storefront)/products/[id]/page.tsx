@@ -1,8 +1,10 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { Product } from '@/types'
 import AddToCartButton from '@/components/AddToCartButton'
-import { getProduct } from '@/lib/api'
+import Breadcrumb from '@/components/Breadcrumb'
+import ProductGallery from '@/components/ProductGallery'
+import RelatedProducts from '@/components/RelatedProducts'
+import { getProduct, getProducts } from '@/lib/api'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,35 +30,50 @@ export default async function ProductPage({
     )
   }
 
+  // Relacionados: misma categoría, excluyendo el producto actual. No hay endpoint
+  // por categoría, así que traemos todos y filtramos. Si falla, seguimos sin ellos.
+  let related: Product[] = []
+  try {
+    const all: Product[] = await getProducts()
+    related = all.filter(p => p.category === product.category && p.id !== product.id)
+  } catch {
+    related = []
+  }
+
   return (
     <div className="max-w-4xl mx-auto">
-      <Link
-        href="/products"
-        className="text-sm transition-colors mb-8 inline-block hover:opacity-80"
-        style={{ color: 'rgba(245, 230, 200, 0.5)' }}
-      >
-        ← Volver
-      </Link>
+      <Breadcrumb
+        items={[
+          { label: 'Inicio', href: '/' },
+          { label: 'Productos', href: '/products' },
+          { label: product.category, href: `/products?category=${encodeURIComponent(product.category)}` },
+          { label: product.name },
+        ]}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="relative aspect-square rounded-2xl overflow-hidden" style={{ backgroundColor: '#3D0A0A' }}>
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            unoptimized
-            className="object-cover"
-          />
-        </div>
+        <ProductGallery product={product} />
         <div className="flex flex-col justify-center">
           <p className="text-sm mb-2" style={{ color: 'rgba(245, 230, 200, 0.5)' }}>{product.category}</p>
           <h1 className="text-3xl font-semibold mb-4" style={{ color: '#F5E6C8' }}>{product.name}</h1>
-          <p className="mb-8" style={{ color: 'rgba(245, 230, 200, 0.6)' }}>{product.description}</p>
           <p className="text-2xl font-semibold mb-8" style={{ color: '#CD8C1F' }}>
             ${product.price.toLocaleString('es-AR')}
           </p>
           <AddToCartButton product={product} />
         </div>
       </div>
+
+      {/* Descripción extendida */}
+      <section className="mt-16 max-w-2xl">
+        <h2 className="text-xl font-semibold mb-4" style={{ color: '#F5E6C8' }}>
+          Descripción
+        </h2>
+        <p className="leading-relaxed whitespace-pre-line" style={{ color: 'rgba(245, 230, 200, 0.7)' }}>
+          {product.description}
+        </p>
+      </section>
+
+      <RelatedProducts products={related} />
     </div>
   )
 }

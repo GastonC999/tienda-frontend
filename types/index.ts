@@ -4,6 +4,9 @@ export interface Product {
   price: number
   description: string
   image: string
+  // Galería opcional. Si el backend no la envía, la UI usa [image] como
+  // fuente única. Preparado para múltiples fotos sin romper productos actuales.
+  images?: string[]
   category: string
   stock: number
 }
