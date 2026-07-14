@@ -9,13 +9,6 @@ const CATEGORIES = [
     color: '#581A1B',
   },
   {
-    name: 'CBD y Bienestar',
-    description: 'Aceites CBD, tinturas, cremas y plantines',
-    icon: '🌿',
-    href: '/products?category=CBD%20y%20Bienestar',
-    color: '#0A2A0A',
-  },
-  {
     name: 'Cultivo',
     description: 'Fertilizantes, carpas, luces y sustrato',
     icon: '🌱',
