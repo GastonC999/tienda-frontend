@@ -2,10 +2,11 @@
 
 import { createContext, useCallback, useContext, useState } from 'react'
 
-// Sistema de notificaciones flotantes (toasts) del panel admin. Provee un
-// contexto con toast.success()/toast.error() para dar feedback de cada
-// operación del ABM (crear, editar, eliminar, subir imagen). Se monta una sola
-// vez en AdminShell, por lo que cualquier componente del panel puede emitir.
+// Sistema de notificaciones flotantes (toasts) compartido por toda la app. Provee
+// un contexto con toast.success()/toast.error() para dar feedback de las acciones
+// del usuario (agregar al carrito, ABM del panel admin, etc.). Se monta una vez por
+// árbol —en el layout de la tienda y en AdminShell—, por lo que cualquier
+// componente cliente debajo puede emitir.
 
 type ToastType = 'success' | 'error'
 
@@ -22,7 +23,7 @@ interface ToastApi {
 
 const ToastContext = createContext<ToastApi | null>(null)
 
-// Hook para emitir toasts desde cualquier componente cliente del panel.
+// Hook para emitir toasts desde cualquier componente cliente.
 export function useToast(): ToastApi {
   const ctx = useContext(ToastContext)
   if (!ctx) throw new Error('useToast debe usarse dentro de <ToastProvider>')

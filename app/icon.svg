@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="beanCrease">
+      <rect x="0" y="0" width="512" height="512" fill="white"/>
+      <path d="M174 220 C 158 240, 190 272, 174 292" stroke="black" stroke-width="8" fill="none" stroke-linecap="round"/>
+    </mask>
+  </defs>
+
+  <g stroke="#CD8C1F" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Cinta infinito -->
+    <path stroke-width="22" d="M256 256
+      C 205 172, 92 172, 92 256
+      C 92 340, 205 340, 256 256
+      C 307 172, 420 172, 420 256
+      C 420 340, 307 340, 256 256"/>
+
+    <!-- Hoja / loto de 3 pétalos (lado derecho) -->
+    <g stroke-width="12">
+      <path d="M347 298 C 327 272, 327 236, 347 210 C 367 236, 367 272, 347 298 Z"/>
+      <path transform="rotate(-40 347 300)" d="M347 298 C 331 278, 331 250, 347 228 C 363 250, 363 278, 347 298 Z"/>
+      <path transform="rotate(40 347 300)" d="M347 298 C 331 278, 331 250, 347 228 C 363 250, 363 278, 347 298 Z"/>
+    </g>
+  </g>
+
+  <!-- Grano de café (lado izquierdo), relleno con la hendidura calada -->
+  <ellipse cx="174" cy="256" rx="27" ry="40" fill="#CD8C1F" mask="url(#beanCrease)"
+    transform="rotate(-10 174 256)"/>
+</svg>

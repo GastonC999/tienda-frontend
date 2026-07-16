@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import type { HeroSlide, HeroSlideInput } from '@/types'
-import { useToast } from '@/components/admin/ToastProvider'
+import { useToast } from '@/components/ToastProvider'
 import HeroSlideFormModal from './HeroSlideFormModal'
 
 // Orquestador de la edición del carousel Hero (client). Recibe los slides desde

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import type { AuthUser } from '@/types'
 import Sidebar from './Sidebar'
 import Header from './Header'
-import ToastProvider from './ToastProvider'
+import ToastProvider from '@/components/ToastProvider'
 
 type SessionUser = Pick<AuthUser, 'email' | 'role'>
 
