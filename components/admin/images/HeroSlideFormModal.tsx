@@ -65,6 +65,7 @@ export default function HeroSlideFormModal({
       cta: cta.trim(),
       href: href.trim(),
       imageUrl,
+      orden: slide.orden,
     })
     // Si falló, dejamos el modal abierto para reintentar (el toast ya avisó).
     if (!ok) setSaving(false)
