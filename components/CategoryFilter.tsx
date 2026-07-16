@@ -1,6 +1,7 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { buildProductQuery } from '@/lib/productFilters'
 
 export default function CategoryFilter({
   categories,
@@ -10,19 +11,24 @@ export default function CategoryFilter({
   active?: string
 }) {
   const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  // Cambia solo el param `category` y preserva búsqueda, precio y orden.
+  function selectCategory(category: string | null) {
+    const query = buildProductQuery(searchParams, { category })
+    router.push(`${pathname}${query}`, { scroll: false })
+  }
 
   function handleClick(category: string) {
-    if (category === active) {
-      router.push('/products')
-    } else {
-      router.push(`/products?category=${encodeURIComponent(category)}`)
-    }
+    // Volver a tocar la categoría activa la deselecciona ("Todos").
+    selectCategory(category === active ? null : category)
   }
 
   return (
     <div className="flex flex-wrap gap-2">
       <button
-        onClick={() => router.push('/products')}
+        onClick={() => selectCategory(null)}
         className="px-4 py-2 rounded-full text-sm font-medium transition-all"
         style={{
           backgroundColor: !active ? '#CD8C1F' : 'transparent',
