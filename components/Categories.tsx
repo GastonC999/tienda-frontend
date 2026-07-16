@@ -9,13 +9,6 @@ const CATEGORIES = [
     color: '#581A1B',
   },
   {
-    name: 'Cannabis Medicinal',
-    description: 'Aceites CBD, tinturas, cremas y plantines',
-    icon: '🌿',
-    href: '/products?category=Cannabis%20Medicinal',
-    color: '#0A2A0A',
-  },
-  {
     name: 'Cultivo',
     description: 'Fertilizantes, carpas, luces y sustrato',
     icon: '🌱',
