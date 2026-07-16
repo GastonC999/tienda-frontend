@@ -30,9 +30,10 @@ export interface HeroSlide {
   orden: number
 }
 
-// Payload de edición de un slide: todo menos id y orden (no se reordena desde
-// el formulario). Lo usan el modal del admin y el route handler BFF.
-export type HeroSlideInput = Omit<HeroSlide, 'id' | 'orden'>
+// Payload de edición de un slide: todo menos id. El `orden` no se edita en el
+// formulario pero se reenvía tal cual para que el backend no lo pierda.
+// Lo usan el modal del admin y el route handler BFF.
+export type HeroSlideInput = Omit<HeroSlide, 'id'>
 
 export interface AuthUser {
   email: string
