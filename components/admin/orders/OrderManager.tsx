@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Order, OrderStatus } from '@/types'
-import { useToast } from '@/components/admin/ToastProvider'
+import { useToast } from '@/components/ToastProvider'
 import { STATUS_CONFIG, ORDER_STATUSES } from './OrderStatusBadge'
 import OrdersTable from './OrdersTable'
 import OrderDetailModal from './OrderDetailModal'

@@ -4,14 +4,32 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Product } from '@/types'
 import { useCartStore } from '@/store/cartStore'
+import { useToast } from '@/components/ToastProvider'
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  index = 0,
+}: {
+  product: Product
+  index?: number
+}) {
   const addItem = useCartStore(state => state.addItem)
+  const toast = useToast()
+
+  const handleAdd = () => {
+    addItem(product)
+    toast.success(`${product.name} agregado al carrito`)
+  }
 
   return (
     <div
-      className="rounded-xl overflow-hidden transition-colors"
-      style={{ backgroundColor: '#581A1B', border: '1px solid rgba(200, 144, 42, 0.2)' }}
+      className="fade-in-up rounded-xl overflow-hidden transition-colors"
+      style={{
+        backgroundColor: '#581A1B',
+        border: '1px solid rgba(200, 144, 42, 0.2)',
+        // Aparición escalonada de las cards; el tope evita esperas largas en catálogos grandes.
+        animationDelay: `${Math.min(index, 8) * 60}ms`,
+      }}
     >
       <Link href={`/products/${product.id}`}>
         <div className="relative w-full aspect-square" style={{ backgroundColor: '#3D0A0A' }}>
@@ -37,7 +55,7 @@ export default function ProductCard({ product }: { product: Product }) {
             ${product.price.toLocaleString('es-AR')}
           </span>
           <button
-            onClick={() => addItem(product)}
+            onClick={handleAdd}
             className="text-sm px-4 py-2 rounded-lg font-medium transition-colors"
             style={{ backgroundColor: '#CD8C1F', color: '#3D0A0A' }}
           >

@@ -3,9 +3,11 @@
 import { useState } from 'react'
 import { Product } from '@/types'
 import { useCartStore } from '@/store/cartStore'
+import { useToast } from '@/components/ToastProvider'
 
 export default function AddToCartButton({ product }: { product: Product }) {
   const addItem = useCartStore(state => state.addItem)
+  const toast = useToast()
   const [quantity, setQuantity] = useState(1)
 
   const outOfStock = product.stock <= 0
@@ -14,6 +16,11 @@ export default function AddToCartButton({ product }: { product: Product }) {
 
   const dec = () => setQuantity(q => Math.max(1, q - 1))
   const inc = () => setQuantity(q => Math.min(max, q + 1))
+
+  const handleAdd = () => {
+    addItem(product, quantity)
+    toast.success(`${quantity} × ${product.name} agregado al carrito`)
+  }
 
   return (
     <div>
@@ -53,7 +60,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
       </div>
 
       <button
-        onClick={() => addItem(product, quantity)}
+        onClick={handleAdd}
         disabled={outOfStock}
         className="w-full py-3 rounded-xl text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         style={{ backgroundColor: '#CD8C1F', color: '#3D0A0A' }}

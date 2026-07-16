@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Product, ProductInput, Role } from '@/types'
-import { useToast } from '@/components/admin/ToastProvider'
+import { useToast } from '@/components/ToastProvider'
 import ProductsTable from './ProductsTable'
 import ProductFormModal from './ProductFormModal'
 import ConfirmDialog from './ConfirmDialog'
