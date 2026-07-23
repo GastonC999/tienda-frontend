@@ -230,7 +230,11 @@ export default function Navbar({ minimal = false }: { minimal?: boolean }) {
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center">
-          <Link href="/" onClick={scrollToTop}>
+          {/* Reservamos el mismo alto que en el navbar completo aportan los botones
+              (Productos/Carrito/Ingresar: py-2 + text-sm + borde ≈ 2.375rem). Sin esto,
+              al no haber opciones la fila se encoge al alto del logo y la cabecera —y el
+              logo— se ven más chicos que en el home. */}
+          <Link href="/" onClick={scrollToTop} className="flex items-center min-h-[2.375rem]">
             <Image
               src="/mocanna-logo.webp"
               alt="Moccana"
